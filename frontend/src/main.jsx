@@ -32,7 +32,7 @@ import {
 } from 'lucide-react';
 import heroImage from './assets/imec/hero-premium-welder.jpg';
 import footerImage from './assets/imec/footer-industrial.jpg';
-import imecLogo from './assets/imec/imec-logo-header-clean.svg';
+import imecLogo from './assets/imec/imec-logo-3d-animated.svg';
 import projectShopImage from './assets/imec/project-premium-shop.jpg';
 import portfolioVasos from './assets/imec/portfolio-vasos.jpg';
 import portfolioTubulacoes from './assets/imec/portfolio-tubulacoes.jpg';
@@ -139,61 +139,68 @@ const differentials = [
 
 const impactMetrics = [
   ['100+', 'usinas atendidas'],
-  ['1998', 'ano de fundação'],
-  ['5.000m²', 'nova área fabril'],
-  ['24+', 'anos de história'],
+  ['1998', 'início das atividades'],
+  ['5.000m²', 'área fabril planejada'],
+  ['Brasil', 'atendimento nacional'],
 ];
 
 const processSteps = [
-  { icon: Users, title: 'Diagnostico', text: 'Entendimento da necessidade, operacao e prioridade tecnica do cliente.' },
-  { icon: FileText, title: 'Engenharia', text: 'Definicao da solucao, documentacao e planejamento para fabricar ou executar.' },
-  { icon: Factory, title: 'Fabricacao', text: 'Producao industrial com foco em robustez, prazo e aderencia ao processo.' },
-  { icon: HardHat, title: 'Montagem', text: 'Equipe em campo para instalacao, paradas, movimentacao e integracao.' },
-  { icon: Gauge, title: 'Performance', text: 'Acompanhamento apos a entrega para qualidade, eficiencia e confianca.' }
+  { icon: Users, title: 'Diagnóstico', text: 'Entendimento da necessidade, operação e prioridade técnica do cliente.' },
+  { icon: FileText, title: 'Engenharia', text: 'Definição da solução, documentação e planejamento para fabricar ou executar.' },
+  { icon: Factory, title: 'Fabricação', text: 'Produção industrial com foco em robustez, prazo e aderência ao processo.' },
+  { icon: HardHat, title: 'Montagem', text: 'Equipe em campo para instalação, paradas, movimentação e integração.' },
+  { icon: Gauge, title: 'Performance', text: 'Acompanhamento após a entrega para qualidade, eficiência e confiança.' }
 ];
 
 const proofPillars = [
-  { icon: ShieldCheck, title: 'Menos risco na parada', text: 'Planejamento tecnico, equipes orientadas e documentacao para reduzir improvisos em janelas criticas.' },
+  { icon: ShieldCheck, title: 'Menos risco na parada', text: 'Planejamento técnico, equipes orientadas e documentação para reduzir improvisos em janelas críticas.' },
   { icon: Gauge, title: 'Performance acompanhada', text: 'Entrega com suporte depois da partida, ajudando a manter estabilidade, rendimento e confiabilidade.' },
-  { icon: FileText, title: 'Decisao mais segura', text: 'Conteudo claro para compras, engenharia e operacao entenderem escopo, aplicacao e proximos passos.' }
+  { icon: FileText, title: 'Decisão mais segura', text: 'Conteúdo claro para compras, engenharia e operação entenderem escopo, aplicação e próximos passos.' }
 ];
 
 const serviceSalesNotes = [
-  ['Montagem Industrial', 'Quando a planta precisa crescer ou voltar a operar sem perder prazo.', 'Equipe em campo, integracao de equipamentos e acompanhamento ate a entrega operacional.'],
-  ['Suporte Tecnico', 'Quando a operacao precisa de decisao rapida e orientacao especializada.', 'Contato direto com responsaveis tecnicos antes, durante e depois da entrega.'],
-  ['Manutencao de Equipamentos', 'Quando equipamentos criticos precisam voltar com confiabilidade.', 'Reformas, inspecoes, recuperacao de componentes e melhorias para reduzir paradas.'],
-  ['Projetos', 'Quando a necessidade nao cabe em solucao pronta.', 'Engenharia aplicada, documentacao tecnica e fabricacao conectadas desde o inicio.'],
-  ['Locacao de Guinchos e Munks', 'Quando a movimentacao precisa ser segura e planejada.', 'Apoio para icamento, montagem e parada industrial com foco em seguranca.'],
-  ['Equipamentos para Usinas', 'Quando a usina busca robustez para etanol, acucar e energia.', 'Produtos para destilacao, fuligem, levedura, tanques, trocadores e plantas industriais.']
+  ['Montagem Industrial', 'Quando a planta precisa crescer ou voltar a operar sem perder prazo.', 'Equipe em campo, integração de equipamentos e acompanhamento até a entrega operacional.'],
+  ['Suporte Técnico', 'Quando a operação precisa de decisão rápida e orientação especializada.', 'Contato direto com responsáveis técnicos antes, durante e depois da entrega.'],
+  ['Manutenção de Equipamentos', 'Quando equipamentos críticos precisam voltar com confiabilidade.', 'Reformas, inspeções, recuperação de componentes e melhorias para reduzir paradas.'],
+  ['Projetos', 'Quando a necessidade não cabe em solução pronta.', 'Engenharia aplicada, documentação técnica e fabricação conectadas desde o início.'],
+  ['Locação de Guinchos e Munks', 'Quando a movimentação precisa ser segura e planejada.', 'Apoio para içamento, montagem e parada industrial com foco em segurança.'],
+  ['Equipamentos para Usinas', 'Quando a usina busca robustez para etanol, açúcar e energia.', 'Produtos para destilação, fuligem, levedura, tanques, trocadores e plantas industriais.']
 ];
 
-const productTags = ['Etanol', 'Acucar', 'Energia', 'Utilidades', 'Paradas', 'Processo'];
+const productTags = ['Etanol', 'Açúcar', 'Energia', 'Utilidades', 'Paradas', 'Processo'];
 
 const capabilityMatrix = [
-  { icon: Factory, title: 'Fabrica e campo no mesmo raciocinio', text: 'A solucao ja nasce pensando em fabricacao, montagem, manutencao e operacao real da planta.' },
-  { icon: ShieldCheck, title: 'Seguranca para decisao tecnica', text: 'Conteudo organizado para engenharia, compras e diretoria entenderem escopo, risco e proximo passo.' },
-  { icon: Users, title: 'Atendimento sem distancia', text: 'Contato direto com a equipe, leitura rapida da necessidade e encaminhamento objetivo para orcamento.' },
+  { icon: Factory, title: 'Fábrica e campo no mesmo raciocínio', text: 'A solução já nasce pensando em fabricação, montagem, manutenção e operação real da planta.' },
+  { icon: ShieldCheck, title: 'Segurança para decisão técnica', text: 'Conteúdo organizado para engenharia, compras e diretoria entenderem escopo, risco e próximo passo.' },
+  { icon: Users, title: 'Atendimento sem distância', text: 'Contato direto com a equipe, leitura rápida da necessidade e encaminhamento objetivo para orçamento.' },
   { icon: Gauge, title: 'Foco em continuidade operacional', text: 'Projetos, reformas e equipamentos com foco em reduzir parada, retrabalho e perda de desempenho.' }
 ];
 
+const problemSolutions = [
+  { icon: ShieldCheck, title: 'Paradas com menos improviso', text: 'Planejamento técnico para manutenção, reforma e montagem em janelas críticas de operação.' },
+  { icon: Factory, title: 'Equipamentos sob medida', text: 'Fabricação e integração para destilação, fuligem, levedura, tanques, utilidades e processo.' },
+  { icon: Wrench, title: 'Ativos críticos recuperados', text: 'Reformas, inspeções e melhorias para devolver confiabilidade a equipamentos industriais.' },
+  { icon: Users, title: 'Decisão técnica mais rápida', text: 'Comunicação direta para alinhar escopo, prazo, fotos, documentos e próximo passo comercial.' }
+];
+
 const faqItems = [
-  ['A IMEC atende fora de Sud Mennucci?', 'Sim. A empresa tem base em Sud Mennucci-SP e experiencia nacional com usinas, destilarias, energia e industria alimenticia.'],
-  ['O atendimento e apenas para produtos novos?', 'Nao. A IMEC tambem atua com manutencao, reforma, montagem industrial, suporte tecnico e melhorias em equipamentos existentes.'],
-  ['Como comecar um orcamento?', 'O melhor caminho e enviar pelo WhatsApp a necessidade, local da planta, prazo desejado e fotos ou documentos tecnicos disponiveis.'],
-  ['A empresa fornece documentacao tecnica?', 'Sim. A proposta pode envolver engenharia, documentacao, orientacao tecnica e acompanhamento conforme o tipo de solucao contratada.']
+  ['A IMEC atende fora de Sud Mennucci?', 'Sim. A empresa tem base em Sud Mennucci-SP e experiência nacional com usinas, destilarias, energia e indústria alimentícia.'],
+  ['O atendimento é apenas para produtos novos?', 'Não. A IMEC também atua com manutenção, reforma, montagem industrial, suporte técnico e melhorias em equipamentos existentes.'],
+  ['Como começar um orçamento?', 'O melhor caminho é enviar pelo WhatsApp a necessidade, local da planta, prazo desejado e fotos ou documentos técnicos disponíveis.'],
+  ['A empresa fornece documentação técnica?', 'Sim. A proposta pode envolver engenharia, documentação, orientação técnica e acompanhamento conforme o tipo de solução contratada.']
 ];
 
 const quoteChecklist = [
-  'Tipo de equipamento, servico ou processo',
+  'Tipo de equipamento, serviço ou processo',
   'Local da planta e prazo desejado',
-  'Fotos, desenhos ou medidas disponiveis',
-  'Contato tecnico para alinhamento rapido'
+  'Fotos, desenhos ou medidas disponíveis',
+  'Contato técnico para alinhamento rápido'
 ];
 
 const detailNextSteps = [
-  ['01', 'Compartilhe a necessidade', 'Envie fotos, desenhos, medidas ou uma breve descricao do problema.'],
-  ['02', 'Alinhe o escopo tecnico', 'A equipe avalia aplicacao, prazo, local de atendimento e melhor caminho de execucao.'],
-  ['03', 'Avance para proposta', 'Com as informacoes certas, a conversa vira especificacao e orcamento com mais rapidez.']
+  ['01', 'Compartilhe a necessidade', 'Envie fotos, desenhos, medidas ou uma breve descrição do problema.'],
+  ['02', 'Alinhe o escopo técnico', 'A equipe avalia aplicação, prazo, local de atendimento e melhor caminho de execução.'],
+  ['03', 'Avance para proposta', 'Com as informações certas, a conversa vira especificação e orçamento com mais rapidez.']
 ];
 
 const serviceDetails = {
@@ -299,6 +306,7 @@ function Logo({ settings = {} }) {
 
 function Header({ settings, current }) {
   const [open, setOpen] = useState(false);
+  const quoteMessage = 'Olá! Gostaria de falar com a IMEC sobre orçamento para equipamento, manutenção ou montagem industrial.';
   const nav = [
     ['/', 'Home'], ['/quem-somos', 'Empresa'], ['/servicos', 'Serviços'], ['/produtos', 'Produtos'], ['/setores', 'Setores'], ['/clientes', 'Clientes'], ['/contato', 'Contato']
   ];
@@ -309,7 +317,7 @@ function Header({ settings, current }) {
     <nav className={open ? 'open' : ''}>{nav.map(([href, label]) => <a className={isActive(href) ? 'active' : ''} aria-current={isActive(href) ? 'page' : undefined} href={href} key={href} onClick={() => setOpen(false)}>{label}</a>)}</nav>
     <div className="top-actions">
       <a className="phone" href={`tel:${settings.phone || DEFAULT_PHONE}`}><Phone size={16} /> {settings.phone || DEFAULT_PHONE}</a>
-      <a className="btn primary" href={whatsappUrl(settings)} target="_blank" rel="noreferrer"><MessageCircle size={16} /> Solicitar Orçamento</a>
+      <a className="btn primary" href={whatsappUrl(settings, quoteMessage)} target="_blank" rel="noreferrer"><MessageCircle size={16} /> Solicitar Orçamento</a>
     </div>
   </header>;
 }
@@ -368,11 +376,19 @@ function ImpactStrip() {
 }
 
 function CatalogCta({ settings }) {
-  return <section className="catalog-cta"><div><span>Catalogo tecnico</span><h2>Produtos, servicos e aplicacoes em um material comercial</h2><p>Abra o catalogo digital da IMEC para apresentar rapidamente a empresa, linha de produtos, atuacao em usinas e canais de contato.</p></div><div><a className="btn primary" href="/catalogo-imec.html" target="_blank" rel="noreferrer"><Download size={17} /> Abrir catalogo</a><a className="btn outline" href={whatsappUrl(settings, 'Ola! Gostaria de receber o catalogo e falar sobre uma solucao da IMEC Metalurgica.')} target="_blank" rel="noreferrer"><MessageCircle size={17} /> Receber no WhatsApp</a></div></section>;
+  return <section className="catalog-cta"><div><span>Catálogo técnico</span><h2>Produtos, serviços e aplicações para avaliação interna</h2><p>Abra o material da IMEC para compartilhar com compras, engenharia e operação antes de avançar para especificação, orçamento ou visita técnica.</p></div><div><a className="btn primary" href="/catalogo-imec.html" target="_blank" rel="noreferrer"><Download size={17} /> Abrir catálogo</a><a className="btn outline" href={whatsappUrl(settings, 'Olá! Gostaria de receber o catálogo e falar sobre uma solução da IMEC Metalúrgica.')} target="_blank" rel="noreferrer"><MessageCircle size={17} /> Receber no WhatsApp</a></div></section>;
+}
+
+function ProblemSolutionSection({ settings }) {
+  const message = 'Olá! Quero falar com a IMEC sobre uma necessidade industrial da minha operação.';
+  return <section className="problem-section">
+    <div className="problem-heading"><span>O que resolvemos</span><h2>Resposta técnica quando a operação não pode parar</h2><p>Da parada programada ao equipamento novo, a IMEC transforma necessidade industrial em escopo, fabricação, montagem e suporte com mais clareza para o cliente.</p><a className="btn primary" href={whatsappUrl(settings, message)} target="_blank" rel="noreferrer"><MessageCircle size={17} /> Conversar com especialista</a></div>
+    <div className="problem-grid">{problemSolutions.map((item) => { const Icon = item.icon; return <article key={item.title}><Icon /><h3>{item.title}</h3><p>{item.text}</p></article>; })}</div>
+  </section>;
 }
 
 function ProcessFlow() {
-  return <section className="process-flow"><div className="process-heading"><span>Metodo IMEC</span><h2>Do diagnostico ao desempenho em campo</h2><p>Uma jornada visual para mostrar que a IMEC nao vende apenas equipamentos: entrega engenharia, execucao e acompanhamento tecnico.</p></div><div className="process-track">{processSteps.map((step, index) => { const Icon = step.icon; return <article key={step.title}><small>{String(index + 1).padStart(2, '0')}</small><Icon /><h3>{step.title}</h3><p>{step.text}</p></article>; })}</div></section>;
+  return <section className="process-flow"><div className="process-heading"><span>Método IMEC</span><h2>Do diagnóstico ao desempenho em campo</h2><p>Engenharia, fabricação, montagem e suporte técnico trabalham juntos para reduzir improvisos e dar mais previsibilidade à operação.</p></div><div className="process-track">{processSteps.map((step, index) => { const Icon = step.icon; return <article key={step.title}><small>{String(index + 1).padStart(2, '0')}</small><Icon /><h3>{step.title}</h3><p>{step.text}</p></article>; })}</div></section>;
 }
 
 function ProjectHighlights() {
@@ -381,12 +397,12 @@ function ProjectHighlights() {
     ['Tratamento de fuligem', 'Equipamentos para rotina de caldeira, utilidades e melhoria operacional.'],
     ['Paradas industriais', 'Manutencao, reforma, montagem e movimentacao de equipamentos em campo.']
   ];
-  return <section className="project-highlights" style={{ backgroundImage: `linear-gradient(90deg, rgba(4,13,22,.98), rgba(4,13,22,.9) 42%, rgba(4,13,22,.68)), url(${projectShopImage})` }}><div><span>Projetos executados</span><h2>Obras, equipamentos e manutencoes com foco em resultado</h2><p>Uma apresentacao mais direta para compradores, engenheiros e gestores: o site mostra onde a IMEC atua, o que entrega e como reduz risco tecnico na operacao.</p></div><div>{items.map(([title, text], index) => <article key={title}><strong>{String(index + 1).padStart(2, '0')}</strong><h3>{title}</h3><p>{text}</p><a href="/contato">Falar sobre projeto <ChevronRight size={15} /></a></article>)}</div></section>;
+  return <section className="project-highlights" style={{ backgroundImage: `linear-gradient(90deg, rgba(4,13,22,.98), rgba(4,13,22,.9) 42%, rgba(4,13,22,.68)), url(${projectShopImage})` }}><div><span>Projetos executados</span><h2>Obras, equipamentos e manutenções com foco em resultado</h2><p>Atuação voltada a usinas, destilarias e plantas industriais que precisam de prazo, robustez e suporte técnico sem perder clareza de escopo.</p></div><div>{items.map(([title, text], index) => <article key={title}><strong>{String(index + 1).padStart(2, '0')}</strong><h3>{title}</h3><p>{text}</p><a href="/contato">Falar sobre projeto <ChevronRight size={15} /></a></article>)}</div></section>;
 }
 
 function ProofSection() {
   return <section className="proof-section">
-    <div className="proof-intro"><span>Por que escolher a IMEC</span><h2>Mais clareza para compras, engenharia e operacao</h2><p>Os blocos destacam risco, performance e documentacao, deixando a proposta de valor mais visual e mais facil de entender.</p></div>
+    <div className="proof-intro"><span>Por que escolher a IMEC</span><h2>Mais clareza para compras, engenharia e operação</h2><p>A proposta chega com foco técnico, comunicação direta e acompanhamento para transformar necessidade industrial em entrega confiável.</p></div>
     <div className="proof-grid">{proofPillars.map((item) => { const Icon = item.icon; return <article key={item.title}><Icon /><h3>{item.title}</h3><p>{item.text}</p></article>; })}</div>
   </section>;
 }
@@ -400,7 +416,7 @@ function CapabilitySection() {
 
 function FaqSection({ settings }) {
   return <section className="faq-section">
-    <div><span>Duvidas frequentes</span><h2>Antes do orcamento, o cliente ja entende o caminho</h2><p>Respostas curtas reduzem atrito e ajudam o visitante a chamar a IMEC com as informacoes certas.</p><a className="btn primary" href={whatsappUrl(settings, 'Ola! Tenho uma duvida e gostaria de falar com a IMEC Metalurgica.')} target="_blank" rel="noreferrer"><MessageCircle size={17} /> Tirar duvida no WhatsApp</a></div>
+    <div><span>Dúvidas frequentes</span><h2>Antes do orçamento, o cliente já entende o caminho</h2><p>Veja como iniciar a conversa com a equipe técnica e quais informações ajudam a acelerar a análise da necessidade.</p><a className="btn primary" href={whatsappUrl(settings, 'Olá! Tenho uma dúvida e gostaria de falar com a IMEC Metalúrgica.')} target="_blank" rel="noreferrer"><MessageCircle size={17} /> Tirar dúvida no WhatsApp</a></div>
     <div className="faq-list">{faqItems.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</div>
   </section>;
 }
@@ -414,7 +430,7 @@ function NextSteps() {
 }
 
 function FinalCta({ settings }) {
-  return <section className="final-cta"><span>Atendimento tecnico</span><h2>Precisa fabricar, reformar ou montar um equipamento industrial?</h2><p>Fale com a equipe da IMEC para avaliar sua necessidade com engenharia, prazo e responsabilidade tecnica.</p><div><a className="btn primary" href={whatsappUrl(settings)} target="_blank" rel="noreferrer"><MessageCircle size={17} /> Solicitar orcamento</a><a className="btn outline" href="/catalogo-imec.html" target="_blank" rel="noreferrer"><Download size={17} /> Ver catalogo</a></div></section>;
+  return <section className="final-cta"><span>Atendimento técnico</span><h2>Precisa fabricar, reformar ou montar um equipamento industrial?</h2><p>Fale com a equipe da IMEC para avaliar sua necessidade com engenharia, prazo e responsabilidade técnica.</p><div><a className="btn primary" href={whatsappUrl(settings, 'Olá! Preciso fabricar, reformar ou montar um equipamento industrial e gostaria de falar com a IMEC.')} target="_blank" rel="noreferrer"><MessageCircle size={17} /> Solicitar orçamento</a><a className="btn outline" href="/catalogo-imec.html" target="_blank" rel="noreferrer"><Download size={17} /> Ver catálogo</a></div></section>;
 }
 
 function Home({ data }) {
@@ -422,19 +438,21 @@ function Home({ data }) {
   const home = officialPage(data.pages?.home || {}, 'home');
   const services = officialServices(data.services || []);
   const portfolio = officialPortfolio(data.portfolio || []);
+  const quoteMessage = 'Olá! Gostaria de falar com a IMEC sobre uma solução industrial para usina, energia ou processo produtivo.';
   return <>
     <section className="hero-ref" style={{ backgroundImage: `linear-gradient(90deg, rgba(3,10,18,.98), rgba(3,10,18,.72) 44%, rgba(3,10,18,.26) 70%, rgba(3,10,18,.86)), url(${assetUrl(settings.hero_image_url || home.image_url || heroImage)})` }}>
-      <div className="hero-copy"><span>IMEC Metalúrgica</span><h1>{home.title || 'Engenharia, fabricação e montagem para operações industriais críticas'}</h1><p>{home.subtitle || 'Equipamentos, manutenção e projetos para usinas de etanol, açúcar, energia e indústria alimentícia, com experiência aplicada em mais de 100 usinas.'}</p><div className="hero-actions"><a className="btn primary" href={whatsappUrl(settings)} target="_blank" rel="noreferrer">Solicitar orçamento <ChevronRight size={18} /></a><a className="btn outline" href="/produtos">Ver equipamentos <ChevronRight size={18} /></a></div></div>
-      <aside className="badges"><article><Award /><b>Performance em campo</b><small>Acompanhamento técnico depois da entrega para reduzir risco operacional.</small></article><article><ShieldCheck /><b>Execução com responsabilidade</b><small>Fabricação, montagem e manutenção com foco em segurança, prazo e confiabilidade.</small></article><article><Settings /><b>Fornecedor BNDES</b><small>Empresa cadastrada como fornecedora de produtos e serviços.</small></article></aside>
+      <div className="hero-copy"><span>IMEC Metalúrgica</span><h1>{home.title || 'Soluções industriais para usinas de etanol, açúcar e energia'}</h1><p>{home.subtitle || 'Fabricação, montagem, manutenção e equipamentos industriais com engenharia aplicada, suporte técnico e experiência em mais de 100 usinas.'}</p><div className="hero-actions"><a className="btn primary" href={whatsappUrl(settings, quoteMessage)} target="_blank" rel="noreferrer">Solicitar orçamento <ChevronRight size={18} /></a><a className="btn outline" href="/produtos">Ver equipamentos <ChevronRight size={18} /></a></div></div>
+      <aside className="badges"><article><Award /><b>Mais previsibilidade</b><small>Escopo, prazo e orientação técnica para reduzir improvisos em paradas e ampliações.</small></article><article><ShieldCheck /><b>Execução responsável</b><small>Fabricação, montagem e manutenção com foco em segurança, confiabilidade e continuidade operacional.</small></article><article><Settings /><b>Fornecedor BNDES</b><small>Credibilidade para compras técnicas, projetos industriais e decisões de investimento.</small></article></aside>
     </section>
     <ImpactStrip />
     <CatalogCta settings={settings} />
+    <ProblemSolutionSection settings={settings} />
     <section className="home-strip services-strip"><div className="strip-title"><span>Serviços industriais</span><h2>Da parada programada à expansão da planta</h2><a href="/servicos">Ver todos <ChevronRight size={16} /></a></div><div className="service-row">{services.slice(0, 6).map((item) => <ServiceCard item={item} key={item.id} />)}</div></section>
     <ProcessFlow />
     <ProofSection />
     <ProjectHighlights />
     <section className="home-strip portfolio-strip"><div className="strip-title"><span>Produtos</span><h2>Equipamentos para processo, energia e utilidades</h2><a href="/produtos">Ver produtos <ChevronRight size={16} /></a></div><div className="portfolio-row">{portfolio.slice(0, 6).map((item) => <PortfolioCard item={item} key={item.id} />)}</div></section>
-    <section className="quick-links" style={{ backgroundImage: `linear-gradient(90deg,rgba(4,14,24,.94),rgba(8,31,52,.92)),url(${footerImage})` }}><a href="/produtos"><Factory /><b>Produtos</b><small>Equipamentos para usinas, destilação e tratamento de fuligem.</small></a><a href="/setores"><Building2 /><b>Setores</b><small>Etanol, açúcar, energia e indústria alimentícia.</small></a><a href={whatsappUrl(settings)} target="_blank" rel="noreferrer"><UserCircle /><b>Orçamento</b><small>Fale com a equipe técnica da IMEC pelo WhatsApp.</small></a></section>
+    <section className="quick-links" style={{ backgroundImage: `linear-gradient(90deg,rgba(4,14,24,.94),rgba(8,31,52,.92)),url(${footerImage})` }}><a href="/produtos"><Factory /><b>Produtos</b><small>Equipamentos para usinas, destilação e tratamento de fuligem.</small></a><a href="/setores"><Building2 /><b>Setores</b><small>Etanol, açúcar, energia e indústria alimentícia.</small></a><a href={whatsappUrl(settings, quoteMessage)} target="_blank" rel="noreferrer"><UserCircle /><b>Orçamento</b><small>Envie sua necessidade e receba encaminhamento técnico pelo WhatsApp.</small></a></section>
     <section className="overview-band"><div><span>Referência nacional</span><h2>Mais de 100 usinas atendidas</h2><p>A IMEC reúne experiência no setor sucroalcooleiro, comunicação direta com o cliente e acompanhamento de performance após a entrega.</p></div><div className="overview-grid">{differentials.map((item) => <InfoCard key={item.title} {...item} />)}</div></section>
     <CapabilitySection />
     <FaqSection settings={settings} />
@@ -524,12 +542,12 @@ function Gallery({ data }) {
 
 function PremiumServices({ data }) {
   const services = officialServices(data.services || []);
-  return <><PageTitle eyebrow="Servicos" title="Servicos industriais com engenharia, campo e suporte tecnico" text="Uma leitura mais rapida para quem esta comparando fornecedores: onde a IMEC atua, qual dor resolve e qual resultado entrega." /><section className="service-commerce-grid">{services.map((item, index) => { const Icon = iconMap[item.icon] || Factory; const note = serviceSalesNotes[index % serviceSalesNotes.length]; return <article className="service-commerce-card" key={item.id}><div><Icon /><span>{String(index + 1).padStart(2, '0')}</span></div><h3>{item.title || note[0]}</h3><p>{item.short_description || note[1]}</p><dl><dt>Cenario</dt><dd>{note[1]}</dd><dt>Entrega</dt><dd>{note[2]}</dd></dl><a href={`/servicos/${item.slug || slugifyTitle(item.title)}`}>Ver detalhes <ChevronRight size={15} /></a></article>; })}</section><CapabilitySection /><FaqSection settings={officialSettings(data.settings || {})} /><FinalCta settings={officialSettings(data.settings || {})} /></>;
+  return <><PageTitle eyebrow="Serviços" title="Serviços industriais com engenharia, campo e suporte técnico" text="Conheça onde a IMEC atua, qual necessidade resolve e como ajuda a operação a avançar com mais segurança." /><section className="service-commerce-grid">{services.map((item, index) => { const Icon = iconMap[item.icon] || Factory; const note = serviceSalesNotes[index % serviceSalesNotes.length]; return <article className="service-commerce-card" key={item.id}><div><Icon /><span>{String(index + 1).padStart(2, '0')}</span></div><h3>{item.title || note[0]}</h3><p>{item.short_description || note[1]}</p><dl><dt>Cenário</dt><dd>{note[1]}</dd><dt>Entrega</dt><dd>{note[2]}</dd></dl><a href={`/servicos/${item.slug || slugifyTitle(item.title)}`}>Ver detalhes <ChevronRight size={15} /></a></article>; })}</section><CapabilitySection /><FaqSection settings={officialSettings(data.settings || {})} /><FinalCta settings={officialSettings(data.settings || {})} /></>;
 }
 
 function PremiumProducts({ data }) {
   const products = officialPortfolio(data.portfolio || []);
-  return <><PageTitle eyebrow="Produtos e Equipamentos" title="Catalogo industrial para etanol, acucar, energia e utilidades" text="Equipamentos apresentados com imagem, aplicacao e caminho direto para conversa tecnica. A pagina fica mais comercial e menos parecida com uma lista simples." /><section className="catalog-page"><div className="catalog-intro"><span>Catalogo IMEC</span><h2>Escolha o equipamento e avance para a especificacao</h2><p>Para cada item, o visitante entende aplicacao, contexto de uso e consegue pedir atendimento com uma mensagem pronta pelo WhatsApp.</p><ul className="catalog-intro-list"><li><ShieldCheck size={15} /> Aplicacao por setor e processo</li><li><MessageCircle size={15} /> Orcamento direto pelo WhatsApp</li><li><FileText size={15} /> Apoio tecnico para especificacao</li></ul><a className="btn outline" href="/catalogo-imec.html" target="_blank" rel="noreferrer"><Download size={17} /> Abrir catalogo digital</a></div><div className="catalog-grid">{products.map((item, index) => <article className="catalog-card" key={item.id}><img src={assetUrl(item.cover_image_url || item.image_url || heroImage)} alt={item.title} loading="lazy" decoding="async" /><div><span>{item.category || 'Equipamento industrial'}</span><h3>{item.title}</h3><p>{item.description || item.short_description || 'Solucao industrial para usinas, energia e processos produtivos que exigem robustez e suporte tecnico.'}</p><ul>{productTags.slice(index % 3, index % 3 + 3).map((tag) => <li key={tag}>{tag}</li>)}</ul><div className="catalog-actions"><a href={`/produtos/${item.slug || slugifyTitle(item.title)}`}>Detalhes <ChevronRight size={15} /></a><a href={whatsappUrl(officialSettings(data.settings || {}), `Ola! Quero informacoes sobre ${item.title} da IMEC Metalurgica.`)} target="_blank" rel="noreferrer">Orcar</a></div></div></article>)}</div></section><FaqSection settings={officialSettings(data.settings || {})} /></>;
+  return <><PageTitle eyebrow="Produtos e Equipamentos" title="Catálogo industrial para etanol, açúcar, energia e utilidades" text="Equipamentos com aplicação clara, contexto de uso e caminho direto para conversa técnica com a IMEC." /><section className="catalog-page"><div className="catalog-intro"><span>Catálogo IMEC</span><h2>Escolha o equipamento e avance para a especificação</h2><p>Entenda aplicações, benefícios e próximos passos antes de pedir orçamento ou alinhar uma necessidade com a equipe técnica.</p><ul className="catalog-intro-list"><li><ShieldCheck size={15} /> Aplicação por setor e processo</li><li><MessageCircle size={15} /> Orçamento direto pelo WhatsApp</li><li><FileText size={15} /> Apoio técnico para especificação</li></ul><a className="btn outline" href="/catalogo-imec.html" target="_blank" rel="noreferrer"><Download size={17} /> Abrir catálogo digital</a></div><div className="catalog-grid">{products.map((item, index) => <article className="catalog-card" key={item.id}><img src={assetUrl(item.cover_image_url || item.image_url || heroImage)} alt={item.title} loading="lazy" decoding="async" /><div><span>{item.category || 'Equipamento industrial'}</span><h3>{item.title}</h3><p>{item.description || item.short_description || 'Solução industrial para usinas, energia e processos produtivos que exigem robustez e suporte técnico.'}</p><ul>{productTags.slice(index % 3, index % 3 + 3).map((tag) => <li key={tag}>{tag}</li>)}</ul><div className="catalog-actions"><a href={`/produtos/${item.slug || slugifyTitle(item.title)}`}>Detalhes <ChevronRight size={15} /></a><a href={whatsappUrl(officialSettings(data.settings || {}), `Olá! Quero informações sobre ${item.title} da IMEC Metalúrgica.`)} target="_blank" rel="noreferrer">Orçar</a></div></div></article>)}</div></section><FaqSection settings={officialSettings(data.settings || {})} /></>;
 }
 
 function PremiumDetailPage({ eyebrow, item, settings, backHref }) {
@@ -544,7 +562,7 @@ function PremiumDetailPage({ eyebrow, item, settings, backHref }) {
 function PremiumGallery({ data }) {
   const source = data.photos?.length ? data.photos : officialPortfolio(data.portfolio || []);
   const photos = source.length ? source : fallbackPortfolio;
-  return <><PageTitle eyebrow="Galeria" title="Imagens que comunicam estrutura, processo e capacidade industrial" text="A galeria ganhou um formato editorial, com imagens maiores, chamadas objetivas e leitura mais premium para reforcar credibilidade." /><section className="gallery-showcase"><div className="gallery-lead"><Camera /><h2>Fabricacao, montagem e equipamentos em destaque</h2><p>Use esta area para subir fotos reais pelo painel e transformar a pagina em um portfolio visual da IMEC.</p></div><div className="gallery-mosaic">{photos.slice(0, 8).map((photo, index) => <figure className={index === 0 ? 'featured' : ''} key={photo.id || photo.title}><img src={assetUrl(photo.cover_image_url || photo.image_url || heroImage)} alt={photo.alt_text || photo.title} loading="lazy" decoding="async" /><figcaption><b>{photo.title}</b><span>{photo.category || photo.short_description || 'Projeto industrial IMEC'}</span></figcaption></figure>)}</div></section></>;
+  return <><PageTitle eyebrow="Galeria" title="Estrutura, processos e capacidade industrial da IMEC" text="Registros de fabricação, montagem, manutenção e equipamentos para reforçar confiança técnica antes do contato comercial." /><section className="gallery-showcase"><div className="gallery-lead"><Camera /><h2>Fabricação, montagem e equipamentos em destaque</h2><p>Projetos e imagens ajudam compras, engenharia e operação a visualizar a capacidade industrial da IMEC.</p></div><div className="gallery-mosaic">{photos.slice(0, 8).map((photo, index) => <figure className={index === 0 ? 'featured' : ''} key={photo.id || photo.title}><img src={assetUrl(photo.cover_image_url || photo.image_url || heroImage)} alt={photo.alt_text || photo.title} loading="lazy" decoding="async" /><figcaption><b>{photo.title}</b><span>{photo.category || photo.short_description || 'Projeto industrial IMEC'}</span></figcaption></figure>)}</div></section></>;
 }
 
 function PremiumFooter({ settings }) {
@@ -595,7 +613,7 @@ function PublicSite() {
   useEffect(() => { api('/public/bootstrap').then(setData).catch(() => {}); }, []);
   const current = window.location.pathname.replace(/\/$/, '') || '/';
   useEffect(() => {
-    const targets = document.querySelectorAll('.home-strip,.quick-links,.overview-band,.page-grid,.gallery-grid,.video-grid,.content-split,.timeline-section,.product-list,.client-section,.contact-page,.service-card,.portfolio-card,.info-card,.impact-strip article,.catalog-cta,.detail-page,.process-flow,.process-track article,.project-highlights,.project-highlights article,.final-cta,.map-card,.proof-section,.proof-grid article,.service-commerce-card,.catalog-page,.catalog-card,.gallery-showcase,.gallery-mosaic figure,.capability-section,.capability-grid article,.faq-section,.faq-list details,.quote-checklist,.next-steps article,.footer-pro,.about-hero,.about-metrics article,.about-story,.about-pillars article,.about-timeline article,.about-reasons article,.sector-showcase,.sector-grid article,.sector-proof article,.clients-hero,.clients-hero-metrics article,.clients-premium,.clients-grid article,.clients-highlight,.clients-proof article,.clients-final-cta,.contact-channels article,.quote-form');
+    const targets = document.querySelectorAll('.home-strip,.quick-links,.overview-band,.page-grid,.gallery-grid,.video-grid,.content-split,.timeline-section,.product-list,.client-section,.contact-page,.service-card,.portfolio-card,.info-card,.impact-strip article,.catalog-cta,.problem-section,.problem-grid article,.detail-page,.process-flow,.process-track article,.project-highlights,.project-highlights article,.final-cta,.map-card,.proof-section,.proof-grid article,.service-commerce-card,.catalog-page,.catalog-card,.gallery-showcase,.gallery-mosaic figure,.capability-section,.capability-grid article,.faq-section,.faq-list details,.quote-checklist,.next-steps article,.footer-pro,.about-hero,.about-metrics article,.about-story,.about-pillars article,.about-timeline article,.about-reasons article,.sector-showcase,.sector-grid article,.sector-proof article,.clients-hero,.clients-hero-metrics article,.clients-premium,.clients-grid article,.clients-highlight,.clients-proof article,.clients-final-cta,.contact-channels article,.quote-form');
     targets.forEach((target) => target.classList.add('reveal'));
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -720,7 +738,7 @@ function PublicSite() {
     return <Home data={data} />;
   }, [current, data]);
   const settings = officialSettings(data.settings || {});
-  return <><Header settings={settings} current={current} /><main>{page}</main><a className="floating-whatsapp" href={whatsappUrl(settings)} target="_blank" rel="noreferrer" aria-label="Chamar IMEC no WhatsApp"><MessageCircle size={24} /><span>Orçamento</span></a><PremiumFooter settings={settings} /></>;
+  return <><Header settings={settings} current={current} /><main>{page}</main><a className="floating-whatsapp" href={whatsappUrl(settings, 'Olá! Gostaria de falar com a IMEC sobre uma necessidade industrial.')} target="_blank" rel="noreferrer" aria-label="Chamar IMEC no WhatsApp"><MessageCircle size={24} /><span>Orçamento</span></a><PremiumFooter settings={settings} /></>;
 }
 
 function Admin() {

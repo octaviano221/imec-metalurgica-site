@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 210" role="img" aria-labelledby="title desc">
+  <title id="title">IMEC Metalurgica</title>
+  <desc id="desc">Logo IMEC Metalurgica em estilo 3D com arco animado.</desc>
+  <defs>
+    <linearGradient id="imecBlue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7fb7ff"/>
+      <stop offset=".18" stop-color="#176cff"/>
+      <stop offset=".58" stop-color="#0b31d4"/>
+      <stop offset="1" stop-color="#06146e"/>
+    </linearGradient>
+    <linearGradient id="imecRed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff6c78"/>
+      <stop offset=".2" stop-color="#fa003b"/>
+      <stop offset=".68" stop-color="#c7002b"/>
+      <stop offset="1" stop-color="#830019"/>
+    </linearGradient>
+    <linearGradient id="steelStroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".26" stop-color="#dce9f6"/>
+      <stop offset=".48" stop-color="#6d7e94"/>
+      <stop offset=".72" stop-color="#f7fbff"/>
+      <stop offset="1" stop-color="#8aa6c5"/>
+    </linearGradient>
+    <linearGradient id="redArc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff263f"/>
+      <stop offset=".42" stop-color="#f40026"/>
+      <stop offset="1" stop-color="#8d0018"/>
+    </linearGradient>
+    <linearGradient id="blueArc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#071a8d"/>
+      <stop offset=".48" stop-color="#0787ff"/>
+      <stop offset="1" stop-color="#0822b7"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".45" stop-color="#fff" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="hardShadow" x="-15%" y="-25%" width="130%" height="165%">
+      <feDropShadow dx="4" dy="5" stdDeviation="2.2" flood-color="#00040a" flood-opacity=".42"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="1" flood-color="#ffffff" flood-opacity=".2"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#136dff" flood-opacity=".17"/>
+    </filter>
+    <filter id="softGlow" x="-18%" y="-22%" width="136%" height="150%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.05  0 0.18 0 0 0.28  0 0 1 0 1  0 0 0 .55 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <clipPath id="letterClip">
+      <text x="60" y="132" font-family="Arial Black, Impact, sans-serif" font-size="128" font-weight="900" font-style="italic" letter-spacing="-13">IMEC</text>
+    </clipPath>
+    <style>
+      .logo-core { animation: logoBreathe 4.8s ease-in-out infinite; transform-origin: 350px 96px; }
+      .red-orbit { animation: orbitRed 5.6s ease-in-out infinite; transform-origin: 348px 93px; }
+      .blue-orbit { animation: orbitBlue 5.6s ease-in-out infinite; transform-origin: 350px 96px; }
+      .shine-bar { animation: shineSweep 3.7s ease-in-out infinite; }
+      .metal-line { animation: linePulse 4s ease-in-out infinite; }
+      @keyframes logoBreathe {
+        0%, 100% { transform: translateY(0) scale(1); filter: url(#hardShadow); }
+        50% { transform: translateY(-2px) scale(1.012); filter: url(#hardShadow); }
+      }
+      @keyframes orbitRed {
+        0%, 100% { transform: rotate(0deg) scale(1); opacity: .98; }
+        50% { transform: rotate(-2.2deg) scale(1.018); opacity: 1; }
+      }
+      @keyframes orbitBlue {
+        0%, 100% { transform: rotate(0deg) scale(1); opacity: .92; }
+        50% { transform: rotate(2deg) scale(1.012); opacity: 1; }
+      }
+      @keyframes shineSweep {
+        0%, 38% { transform: translateX(-360px) skewX(-18deg); opacity: 0; }
+        50% { opacity: .72; }
+        70%, 100% { transform: translateX(440px) skewX(-18deg); opacity: 0; }
+      }
+      @keyframes linePulse {
+        0%, 100% { opacity: .55; }
+        50% { opacity: 1; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .logo-core, .red-orbit, .blue-orbit, .shine-bar, .metal-line { animation: none; }
+      }
+    </style>
+  </defs>
+
+  <rect width="720" height="210" fill="none"/>
+
+  <g filter="url(#softGlow)">
+    <path class="red-orbit" d="M149 86C199 17 333 -8 438 35c63 26 107 72 124 128-30-49-84-79-159-89-93-12-184 9-247 63Z" fill="url(#redArc)"/>
+    <path class="blue-orbit" d="M177 146c63 42 192 48 292 12 54-20 92-50 113-86-16 61-70 105-149 123-100 23-209 7-262-43Z" fill="url(#blueArc)" opacity=".95"/>
+  </g>
+
+  <path class="metal-line" d="M74 76h555" fill="none" stroke="url(#steelStroke)" stroke-width="3.4" stroke-linecap="round"/>
+  <path class="metal-line" d="M70 161h554" fill="none" stroke="url(#steelStroke)" stroke-width="3" stroke-linecap="round" opacity=".74"/>
+
+  <g class="logo-core">
+    <g transform="skewX(-12)">
+      <text x="72" y="134" font-family="Arial Black, Impact, sans-serif" font-size="128" font-weight="900" font-style="italic" letter-spacing="-13" fill="none" stroke="#020713" stroke-width="13" stroke-linejoin="round">IMEC</text>
+      <text x="72" y="134" font-family="Arial Black, Impact, sans-serif" font-size="128" font-weight="900" font-style="italic" letter-spacing="-13" fill="none" stroke="url(#steelStroke)" stroke-width="4.2" stroke-linejoin="round">IMEC</text>
+      <text x="72" y="134" font-family="Arial Black, Impact, sans-serif" font-size="128" font-weight="900" font-style="italic" letter-spacing="-13">
+        <tspan fill="url(#imecBlue)">I</tspan><tspan fill="url(#imecRed)">M</tspan><tspan fill="url(#imecBlue)">E</tspan><tspan fill="url(#imecBlue)">C</tspan>
+      </text>
+      <path class="shine-bar" d="M96 57h453" stroke="url(#shine)" stroke-width="4.2" stroke-linecap="round" opacity=".32"/>
+    </g>
+  </g>
+
+  <g transform="translate(138 182)" font-family="Arial Black, Impact, sans-serif" font-weight="900" font-style="italic" letter-spacing="9">
+    <text x="6" y="4" font-size="43" fill="#010612" opacity=".78">METALURGICA</text>
+    <text x="0" y="0" font-size="43" fill="none" stroke="#06111d" stroke-width="6" paint-order="stroke">METALURGICA</text>
+    <text x="0" y="0" font-size="43" fill="url(#imecBlue)" stroke="url(#steelStroke)" stroke-width="1.35" paint-order="stroke">METALURGICA</text>
+  </g>
+</svg>
