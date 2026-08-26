@@ -139,7 +139,40 @@ app.put('/api/admin/settings', async (req, res) => {
   await query(`UPDATE company_settings SET company_name=:company_name,logo_url=:logo_url,phone=:phone,whatsapp=:whatsapp,email=:email,address=:address,city=:city,state=:state,hero_image_url=:hero_image_url,youtube_url=:youtube_url,instagram_url=:instagram_url,linkedin_url=:linkedin_url,facebook_url=:facebook_url WHERE id=1`, req.body);
   res.json({ message: 'Dados atualizados.' });
 });
+app.put('/api/admin/password', async (req, res) => {
+  const { current_password, new_password } = req.body;
+  if (!current_password || !new_password || new_password.length < 8) return res.status(400).json({ message: 'Informe a senha atual e uma nova senha com pelo menos 8 caracteres.' });
+  const users = await query('SELECT id,password_hash FROM users WHERE id=:id LIMIT 1', { id: req.user.id });
+  const user = users[0];
+  if (!user || !(await bcrypt.compare(current_password, user.password_hash))) return res.status(401).json({ message: 'Senha atual invalida.' });
+  const password_hash = await bcrypt.hash(new_password, 10);
+  await query('UPDATE users SET password_hash=:password_hash WHERE id=:id', { id: user.id, password_hash });
+  res.json({ message: 'Senha atualizada.' });
+});
 app.post('/api/admin/upload', upload.single('file'), (req, res) => res.status(201).json({ url: `/uploads/${req.file.filename}` }));
+app.get('/api/admin/uploads', async (_req, res) => {
+  const files = await fs.promises.readdir(uploadDir, { withFileTypes: true });
+  const images = await Promise.all(files
+    .filter((file) => file.isFile() && /\.(avif|gif|jpe?g|png|webp|svg)$/i.test(file.name))
+    .map(async (file) => {
+      const stat = await fs.promises.stat(path.join(uploadDir, file.name));
+      return {
+        name: file.name,
+        url: `/uploads/${file.name}`,
+        size: stat.size,
+        updated_at: stat.mtime
+      };
+    }));
+  res.json(images.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)));
+});
+app.delete('/api/admin/uploads/:file', async (req, res) => {
+  const filename = path.basename(req.params.file || '');
+  if (!filename || filename !== req.params.file) return res.status(400).json({ message: 'Arquivo invalido.' });
+  const target = path.resolve(uploadDir, filename);
+  if (!target.startsWith(uploadDir + path.sep)) return res.status(400).json({ message: 'Arquivo invalido.' });
+  await fs.promises.rm(target, { force: true });
+  res.json({ message: 'Arquivo removido.' });
+});
 
 const tables = { pages: 'pages', services: 'services', portfolio: 'portfolio_projects', categories: 'gallery_categories', photos: 'gallery_photos', videos: 'videos', quotes: 'quote_requests' };
 
