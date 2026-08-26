@@ -787,6 +787,7 @@ function Admin() {
       const d = await api('/auth/login', { method: 'POST', body: JSON.stringify(login) });
       localStorage.setItem('imec_token', d.token);
       setToken(d.token);
+      await load();
     } catch (error) {
       if (error.status === 401) {
         setMsg('E-mail ou senha invalidos. No Hostinger, importe database/reset-admin.sql pelo phpMyAdmin ou rode npm run create-admin -- "Administrador" "admin@imec.com.br" "Admin@123" e tente novamente.');
