@@ -47,6 +47,15 @@ const pool = mysql.createPool({ ...env.db, waitForConnections: true, connectionL
 const query = async (sql, params = {}) => (await pool.execute(sql, params))[0];
 const app = express();
 
+['get', 'post', 'put', 'delete'].forEach((method) => {
+  const original = app[method].bind(app);
+  app[method] = (pathOrRoute, ...handlers) => original(pathOrRoute, ...handlers.map((handler) => (
+    handler?.constructor?.name === 'AsyncFunction'
+      ? (req, res, next) => Promise.resolve(handler(req, res, next)).catch(next)
+      : handler
+  )));
+});
+
 fs.mkdirSync(uploadDir, { recursive: true });
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, uploadDir),
@@ -91,8 +100,6 @@ app.get('/api/health', async (_req, res) => {
     res.status(503).json({ status: 'error', app: 'IMEC Metalurgica API', database: 'offline', message: 'Banco de dados indisponivel.' });
   }
 });
-
-app.get('/api/health', (_req, res) => res.json({ status: 'ok', app: 'IMEC Metalúrgica API' }));
 
 app.post('/api/auth/login', rateLimit({ windowMs: 15 * 60 * 1000, limit: 30 }), async (req, res) => {
   const users = await query('SELECT id,name,email,password_hash,role FROM users WHERE email=:email LIMIT 1', { email: req.body.email });
