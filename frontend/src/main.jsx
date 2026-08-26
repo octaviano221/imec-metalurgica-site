@@ -768,6 +768,12 @@ function Admin() {
       const entries = await Promise.all([api('/admin/settings').then((d) => ['settings', d]), api('/admin/uploads').then((d) => ['uploads', d]), ...resources.filter((x) => x !== 'settings').map((r) => api('/admin/' + r).then((d) => [r, d]))]);
       setState(Object.fromEntries(entries));
     } catch (e) {
+      if (e.status === 401) {
+        localStorage.removeItem('imec_token');
+        setToken('');
+        setMsg('Sessao expirada. Entre novamente para carregar o painel.');
+        return;
+      }
       setMsg(`${e.message} Verifique se a API esta online e se o dominio aponta para /api.`);
     }
   }
