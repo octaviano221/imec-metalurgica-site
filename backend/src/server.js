@@ -92,7 +92,7 @@ app.use(cors({ origin: env.appUrl, credentials: true }));
 app.use(express.json({ limit: '2mb' }));
 app.use('/uploads', express.static(uploadDir));
 
-app.get('/api/health', async (req, res) => {
+app.get('/api/health', async (_req, res) => {
   try {
     await query('SELECT 1 AS ok');
     res.json({ status: 'ok', app: 'IMEC Metalurgica API', database: 'ok' });
@@ -103,23 +103,7 @@ app.get('/api/health', async (req, res) => {
       sqlState: err?.sqlState,
       message: err?.message
     });
-    res.status(503).json({
-      status: 'error',
-      app: 'IMEC Metalurgica API',
-      database: 'offline',
-      message: 'Banco de dados indisponivel.',
-      ...(req.query.debug === '1' ? {
-        diagnostic: {
-          code: err?.code,
-          errno: err?.errno,
-          sqlState: err?.sqlState,
-          message: err?.message,
-          host: env.db.host,
-          dbName: env.db.database,
-          dbUser: env.db.user
-        }
-      } : {})
-    });
+    res.status(503).json({ status: 'error', app: 'IMEC Metalurgica API', database: 'offline', message: 'Banco de dados indisponivel.' });
   }
 });
 
