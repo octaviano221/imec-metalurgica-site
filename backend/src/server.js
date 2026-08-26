@@ -96,7 +96,13 @@ app.get('/api/health', async (_req, res) => {
   try {
     await query('SELECT 1 AS ok');
     res.json({ status: 'ok', app: 'IMEC Metalurgica API', database: 'ok' });
-  } catch {
+  } catch (err) {
+    console.warn('Healthcheck database failed:', {
+      code: err?.code,
+      errno: err?.errno,
+      sqlState: err?.sqlState,
+      message: err?.message
+    });
     res.status(503).json({ status: 'error', app: 'IMEC Metalurgica API', database: 'offline', message: 'Banco de dados indisponivel.' });
   }
 });
