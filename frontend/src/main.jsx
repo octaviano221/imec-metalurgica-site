@@ -2,27 +2,39 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   Award,
+  BarChart3,
   Building2,
   Briefcase,
   Camera,
   ChevronRight,
+  CheckCircle2,
   Download,
+  Eye,
   FileText,
+  FilePenLine,
   Factory,
   Gauge,
+  Globe2,
   HardHat,
+  ImageIcon,
   ImagePlus,
   Instagram,
   Linkedin,
   Lock,
+  LogOut,
   Mail,
   MapPin,
   Menu,
   MessageCircle,
   Phone,
   PlayCircle,
+  Plus,
+  RefreshCw,
+  Save,
+  Search,
   Settings,
   ShieldCheck,
+  Trash2,
   Upload,
   UserCircle,
   Users,
@@ -744,15 +756,14 @@ function PublicSite() {
 function Admin() {
   const [token, setToken] = useState(localStorage.getItem('imec_token') || '');
   const [login, setLogin] = useState({ email: 'admin@imec.com.br', password: 'Admin@123' });
-  const [tab, setTab] = useState('settings');
+  const [tab, setTab] = useState('overview');
   const [state, setState] = useState({});
   const [msg, setMsg] = useState('');
-  const tabs = ['settings', 'pages', 'services', 'portfolio', 'categories', 'photos', 'videos', 'quotes'];
-  const labels = { settings: 'Empresa', pages: 'Paginas', services: 'Servicos', portfolio: 'Produtos', categories: 'Categorias', photos: 'Fotos', videos: 'Videos', quotes: 'Orcamentos' };
+  const resources = adminSections.filter((section) => section.resource).map((section) => section.id);
   async function load() {
     setMsg('');
     try {
-      const entries = await Promise.all([api('/admin/settings').then((d) => ['settings', d]), ...tabs.filter((x) => x !== 'settings').map((r) => api('/admin/' + r).then((d) => [r, d]))]);
+      const entries = await Promise.all([api('/admin/settings').then((d) => ['settings', d]), ...resources.filter((x) => x !== 'settings').map((r) => api('/admin/' + r).then((d) => [r, d]))]);
       setState(Object.fromEntries(entries));
     } catch (e) {
       setMsg(`${e.message} Verifique se a API esta online e se o dominio aponta para /api.`);
@@ -777,23 +788,155 @@ function Admin() {
     }
   }
   if (!token) return <main className="login"><form onSubmit={enter}><Logo /><h1>Painel Administrativo</h1><p>Entre para atualizar textos, servicos, produtos, fotos, videos e pedidos de orcamento.</p><input placeholder="E-mail" value={login.email} onChange={(e) => setLogin({ ...login, email: e.target.value })} /><input placeholder="Senha" type="password" value={login.password} onChange={(e) => setLogin({ ...login, password: e.target.value })} /><button className="btn primary">Entrar</button><a className="btn outline" href="/">Voltar ao site</a>{msg && <p className="admin-warning">{msg}</p>}</form></main>;
-  async function saveSettings(e) { e.preventDefault(); await api('/admin/settings', { method: 'PUT', body: JSON.stringify(state.settings) }); setMsg('Salvo.'); }
-  async function upload(file, cb) { const fd = new FormData(); fd.append('file', file); const d = await api('/admin/upload', { method: 'POST', body: fd }); cb(d.url); }
-  async function save(resource, item) { await api(`/admin/${resource}${item.id ? '/' + item.id : ''}`, { method: item.id ? 'PUT' : 'POST', body: JSON.stringify(item) }); await load(); setMsg('Salvo.'); }
-  async function remove(resource, item) { if (!item.id || resource === 'quotes') return; await api(`/admin/${resource}/${item.id}`, { method: 'DELETE' }); await load(); setMsg('Excluido.'); }
-  return <main className="admin"><aside><Logo /><a className="admin-site-link" href="/">Ver site</a>{tabs.map((x) => <button className={tab === x ? 'active' : ''} onClick={() => setTab(x)} key={x}>{labels[x]}<small>{Array.isArray(state[x]) ? state[x].length : ''}</small></button>)}<button onClick={load}>Recarregar</button><button onClick={() => { localStorage.clear(); setToken(''); }}>Sair</button></aside><section><div className="admin-head"><span>Painel IMEC</span><h1>{labels[tab]}</h1><p>Gerencie conteudo, imagens, paginas e pedidos do site institucional.</p></div>{msg && <p className={['Salvo.', 'Excluido.'].includes(msg) ? 'ok' : 'admin-warning'}>{msg}</p>}{tab === 'settings' ? <SettingsForm data={state.settings || {}} setData={(d) => setState({ ...state, settings: d })} save={saveSettings} upload={upload} /> : <Crud resource={tab} items={state[tab] || []} save={save} remove={remove} upload={upload} />}</section></main>;
+  async function saveSettings(e) {
+    e.preventDefault();
+    await api('/admin/settings', { method: 'PUT', body: JSON.stringify(state.settings) });
+    await load();
+    setMsg('Configuracoes salvas.');
+  }
+  async function upload(file, cb) {
+    const fd = new FormData();
+    fd.append('file', file);
+    const d = await api('/admin/upload', { method: 'POST', body: fd });
+    cb(d.url);
+    setMsg('Arquivo enviado. Revise a previa e salve.');
+  }
+  async function save(resource, item) {
+    await api(`/admin/${resource}${item.id ? '/' + item.id : ''}`, { method: item.id ? 'PUT' : 'POST', body: JSON.stringify(item) });
+    await load();
+    setMsg('Salvo com sucesso.');
+  }
+  async function remove(resource, item) {
+    if (!item.id || resource === 'quotes') return;
+    await api(`/admin/${resource}/${item.id}`, { method: 'DELETE' });
+    await load();
+    setMsg('Item excluido.');
+  }
+  const activeSection = adminSections.find((section) => section.id === tab) || adminSections[0];
+  const openQuotes = (state.quotes || []).filter((quote) => quote.status !== 'finalizado').length;
+  return <main className="admin admin-shell"><aside className="admin-sidebar"><Logo /><div className="admin-user"><UserCircle size={18} /><div><b>Administrador</b><span>IMEC Metalurgica</span></div></div><a className="admin-site-link" href="/" target="_blank" rel="noreferrer"><Globe2 size={16} /> Ver site</a><nav>{adminSections.map((section) => <button className={tab === section.id ? 'active' : ''} onClick={() => setTab(section.id)} key={section.id}><span>{section.icon}<em>{section.label}</em></span>{section.resource && Array.isArray(state[section.resource]) && <small>{state[section.resource].length}</small>}{section.id === 'settings' && <small>site</small>}</button>)}</nav><div className="admin-side-actions"><button onClick={load}><RefreshCw size={16} /> Recarregar dados</button><button onClick={() => { localStorage.clear(); setToken(''); }}><LogOut size={16} /> Sair</button></div></aside><section className="admin-workspace"><div className="admin-topline"><div><span>Painel IMEC</span><h1>{activeSection.label}</h1><p>{activeSection.description}</p></div><div className="admin-status"><span><CheckCircle2 size={15} /> API online</span><span><MessageCircle size={15} /> {openQuotes} orcamentos abertos</span></div></div>{msg && <p className={msg.includes('sucesso') || msg.includes('salv') || msg.includes('enviado') || msg.includes('excluido') ? 'ok admin-message' : 'admin-warning admin-message'}>{msg}</p>}{tab === 'overview' && <AdminOverview state={state} setTab={setTab} reload={load} />}{tab === 'settings' && <SettingsForm data={state.settings || {}} setData={(d) => setState({ ...state, settings: d })} save={saveSettings} upload={upload} />}{activeSection.resource && tab !== 'settings' && <Crud section={activeSection} items={state[activeSection.resource] || []} save={save} remove={remove} upload={upload} />}</section></main>;
 }
+
+const adminSections = [
+  { id: 'overview', label: 'Visao geral', description: 'Resumo rapido do site e atalhos para as areas mais importantes.', icon: <BarChart3 size={18} /> },
+  { id: 'settings', resource: 'settings', label: 'Empresa', description: 'Logo, contatos, redes sociais, endereco e imagem principal do site.', icon: <Settings size={18} />, publicPath: '/' },
+  { id: 'pages', resource: 'pages', label: 'Paginas', description: 'Textos institucionais, subtitulos e imagens das paginas internas.', icon: <FilePenLine size={18} />, publicPath: '/quem-somos' },
+  { id: 'services', resource: 'services', label: 'Servicos', description: 'Servicos que aparecem na home e na pagina de servicos.', icon: <Wrench size={18} />, publicPath: '/servicos' },
+  { id: 'portfolio', resource: 'portfolio', label: 'Produtos', description: 'Produtos, obras, equipamentos e cases para o catalogo do site.', icon: <Briefcase size={18} />, publicPath: '/produtos' },
+  { id: 'categories', resource: 'categories', label: 'Categorias', description: 'Organizacao das fotos e grupos de conteudo.', icon: <ImagePlus size={18} />, publicPath: '/galeria' },
+  { id: 'photos', resource: 'photos', label: 'Fotos', description: 'Galeria visual com imagens, ordem e texto alternativo.', icon: <Camera size={18} />, publicPath: '/galeria' },
+  { id: 'videos', resource: 'videos', label: 'Videos', description: 'Videos do YouTube exibidos no site.', icon: <Youtube size={18} />, publicPath: '/videos' },
+  { id: 'quotes', resource: 'quotes', label: 'Orcamentos', description: 'Pedidos recebidos pelo formulario de contato.', icon: <Mail size={18} />, publicPath: '/contato' }
+];
+
+const adminFieldLabels = {
+  slug: 'Link curto da pagina',
+  title: 'Titulo',
+  subtitle: 'Subtitulo',
+  content: 'Texto principal',
+  image_url: 'Imagem',
+  is_active: 'Status no site',
+  short_description: 'Resumo curto',
+  description: 'Descricao completa',
+  icon: 'Icone',
+  display_order: 'Ordem de exibicao',
+  category: 'Categoria',
+  category_id: 'ID da categoria',
+  location: 'Local',
+  year: 'Ano',
+  cover_image_url: 'Imagem de capa',
+  name: 'Nome',
+  company: 'Empresa',
+  email: 'E-mail',
+  phone: 'Telefone',
+  service_interest: 'Interesse',
+  message: 'Mensagem',
+  status: 'Status do atendimento',
+  alt_text: 'Descricao da imagem'
+};
+
+const settingsGroups = [
+  { title: 'Identidade', text: 'Dados principais que aparecem no topo, rodape e SEO.', fields: ['company_name', 'logo_url', 'hero_image_url'] },
+  { title: 'Atendimento', text: 'Canais de contato usados nos botoes e formulario.', fields: ['phone', 'whatsapp', 'email'] },
+  { title: 'Localizacao', text: 'Endereco exibido no rodape e pagina de contato.', fields: ['address', 'city', 'state'] },
+  { title: 'Redes sociais', text: 'Links externos para reforcar presenca digital.', fields: ['instagram_url', 'linkedin_url', 'youtube_url', 'facebook_url'] }
+];
+
+const settingsLabels = {
+  company_name: 'Nome da empresa',
+  phone: 'Telefone fixo',
+  whatsapp: 'WhatsApp',
+  email: 'E-mail comercial',
+  address: 'Endereco',
+  city: 'Cidade',
+  state: 'Estado',
+  instagram_url: 'Instagram',
+  linkedin_url: 'LinkedIn',
+  youtube_url: 'YouTube',
+  facebook_url: 'Facebook',
+  logo_url: 'Logo do site',
+  hero_image_url: 'Imagem principal'
+};
 
 function SettingsForm({ data, setData, save, upload }) {
-  return <form className="form" onSubmit={save}>{['company_name', 'phone', 'whatsapp', 'email', 'address', 'city', 'state', 'instagram_url', 'linkedin_url', 'youtube_url', 'facebook_url', 'logo_url', 'hero_image_url'].map((field) => <label key={field}>{field}<input value={data[field] || ''} onChange={(e) => setData({ ...data, [field]: e.target.value })} /></label>)}{data.hero_image_url && <img className="admin-preview" src={assetUrl(data.hero_image_url)} alt="Preview do banner" />}<label className="upload"><Upload /> Enviar banner<input type="file" accept="image/*" onChange={(e) => e.target.files[0] && upload(e.target.files[0], (url) => setData({ ...data, hero_image_url: url }))} /></label><button className="btn primary">Salvar</button></form>;
+  return <form className="admin-editor" onSubmit={save}><div className="admin-editor-head"><div><span>Configuracao geral</span><h2>Controle a identidade do site</h2></div><button className="btn primary"><Save size={16} /> Salvar empresa</button></div><div className="admin-settings-grid">{settingsGroups.map((group) => <article className="admin-panel" key={group.title}><h3>{group.title}</h3><p>{group.text}</p><div className="admin-form-grid">{group.fields.map((field) => <FieldControl key={field} field={field} value={data[field]} resource="settings" onChange={(value) => setData({ ...data, [field]: value })} upload={upload} />)}</div></article>)}</div><ImagePreview title="Logo atual" value={data.logo_url} /><ImagePreview title="Banner atual" value={data.hero_image_url} /></form>;
 }
 
-const fields = { pages: ['slug', 'title', 'subtitle', 'content', 'image_url', 'is_active'], services: ['title', 'slug', 'short_description', 'description', 'icon', 'image_url', 'display_order', 'is_active'], portfolio: ['title', 'slug', 'category', 'location', 'year', 'short_description', 'description', 'cover_image_url', 'display_order', 'is_active'], categories: ['name', 'slug', 'display_order', 'is_active'], photos: ['category_id', 'title', 'image_url', 'alt_text', 'display_order', 'is_active'], videos: ['title', 'youtube_url', 'description', 'display_order', 'is_active'], quotes: ['name', 'company', 'email', 'phone', 'service_interest', 'message', 'status'] };
-function Crud({ resource, items, save, remove, upload }) {
-  const blank = { is_active: 1, display_order: 0 };
+const fields = {
+  pages: ['slug', 'title', 'subtitle', 'content', 'image_url', 'is_active'],
+  services: ['title', 'slug', 'short_description', 'description', 'icon', 'image_url', 'display_order', 'is_active'],
+  portfolio: ['title', 'slug', 'category', 'location', 'year', 'short_description', 'description', 'cover_image_url', 'display_order', 'is_active'],
+  categories: ['name', 'slug', 'display_order', 'is_active'],
+  photos: ['category_id', 'title', 'image_url', 'alt_text', 'display_order', 'is_active'],
+  videos: ['title', 'youtube_url', 'description', 'display_order', 'is_active'],
+  quotes: ['name', 'company', 'email', 'phone', 'service_interest', 'message', 'status']
+};
+
+function AdminOverview({ state, setTab, reload }) {
+  const metrics = [
+    { label: 'Servicos publicados', value: (state.services || []).filter((x) => Number(x.is_active) !== 0).length, tab: 'services' },
+    { label: 'Produtos no catalogo', value: (state.portfolio || []).length, tab: 'portfolio' },
+    { label: 'Fotos na galeria', value: (state.photos || []).length, tab: 'photos' },
+    { label: 'Orcamentos abertos', value: (state.quotes || []).filter((x) => x.status !== 'finalizado').length, tab: 'quotes' }
+  ];
+  const latestQuotes = [...(state.quotes || [])].slice(0, 4);
+  return <div className="admin-dashboard"><div className="admin-metrics">{metrics.map((metric) => <button key={metric.label} onClick={() => setTab(metric.tab)}><strong>{metric.value}</strong><span>{metric.label}</span></button>)}</div><div className="admin-dashboard-grid"><article className="admin-panel"><h3>Atalhos de edicao</h3><p>Entre direto no que muda mais o site: servicos, produtos, fotos e imagem principal.</p><div className="admin-shortcuts">{adminSections.filter((section) => section.resource && section.id !== 'quotes').map((section) => <button key={section.id} onClick={() => setTab(section.id)}>{section.icon}<span>{section.label}</span><ChevronRight size={16} /></button>)}</div></article><article className="admin-panel"><h3>Ultimos orcamentos</h3><p>Acompanhe contatos recebidos e marque como finalizado quando resolver.</p><div className="admin-quote-feed">{latestQuotes.length ? latestQuotes.map((quote) => <button key={quote.id} onClick={() => setTab('quotes')}><b>{quote.name || quote.email}</b><span>{quote.service_interest || quote.phone || quote.status}</span></button>) : <span className="admin-empty">Nenhum orcamento recebido ainda.</span>}</div></article></div><button className="btn outline admin-refresh" onClick={reload}><RefreshCw size={16} /> Atualizar painel</button></div>;
+}
+
+function Crud({ section, items, save, remove, upload }) {
+  const resource = section.resource;
+  const blank = resource === 'quotes' ? { status: 'novo' } : { is_active: 1, display_order: 0 };
   const [cur, setCur] = useState(blank);
+  const [query, setQuery] = useState('');
+  useEffect(() => setCur(blank), [resource]);
   const preview = cur.image_url || cur.cover_image_url;
-  return <div className="crud"><form className="form" onSubmit={(e) => { e.preventDefault(); save(resource, cur); setCur(blank); }}>{fields[resource].filter((f) => !['name', 'company', 'email', 'phone', 'message', 'service_interest'].includes(f) || resource !== 'quotes').map((f) => f.includes('description') || f === 'content' || f === 'message' ? <label key={f}>{f}<textarea value={cur[f] || ''} onChange={(e) => setCur({ ...cur, [f]: e.target.value })} /></label> : <label key={f}>{f}<input value={cur[f] || ''} onChange={(e) => setCur({ ...cur, [f]: e.target.value })} /></label>)}{preview && <img className="admin-preview" src={assetUrl(preview)} alt="Preview" />}{resource !== 'quotes' && <label className="upload"><Upload /> Upload<input type="file" accept="image/*" onChange={(e) => e.target.files[0] && upload(e.target.files[0], (url) => setCur({ ...cur, image_url: url, cover_image_url: url }))} /></label>}<div className="admin-form-actions"><button className="btn primary">Salvar</button><button className="btn outline" type="button" onClick={() => setCur(blank)}>Novo</button></div></form><div className="list">{items.map((i) => <article key={i.id}>{(i.image_url || i.cover_image_url) && <img src={assetUrl(i.image_url || i.cover_image_url)} alt="" />}<b>{i.title || i.name || i.email}</b><p>{i.short_description || i.youtube_url || i.message || i.status}</p><div><button onClick={() => setCur(i)}>Editar</button>{resource !== 'quotes' && <button className="danger" onClick={() => remove(resource, i)}>Excluir</button>}</div></article>)}</div></div>;
+  const filtered = items.filter((item) => JSON.stringify(item).toLowerCase().includes(query.toLowerCase()));
+  const editableFields = fields[resource].filter((field) => resource !== 'quotes' || field === 'status');
+  return <div className="crud admin-crud"><form className="admin-editor" onSubmit={(e) => { e.preventDefault(); if (resource === 'quotes' && !cur.id) return; save(resource, cur); setCur(blank); }}><div className="admin-editor-head"><div><span>{cur.id ? `Editando #${cur.id}` : 'Novo item'}</span><h2>{cur.title || cur.name || cur.email || section.label}</h2></div><div className="admin-form-actions">{section.publicPath && <a className="btn outline" href={section.publicPath} target="_blank" rel="noreferrer"><Eye size={16} /> Ver no site</a>}{resource !== 'quotes' && <button className="btn outline" type="button" onClick={() => setCur(blank)}><Plus size={16} /> Novo</button>}<button className="btn primary" disabled={resource === 'quotes' && !cur.id}><Save size={16} /> Salvar</button></div></div>{resource === 'quotes' && <QuoteSummary quote={cur} />}<div className="admin-form-grid">{editableFields.map((field) => <FieldControl key={field} field={field} value={cur[field]} resource={resource} onChange={(value) => setCur({ ...cur, [field]: value })} upload={upload} />)}</div><ImagePreview title="Previa da imagem" value={preview} /></form><div className="admin-list-panel"><div className="admin-list-head"><div><h3>{section.label}</h3><span>{filtered.length} item(ns)</span></div><label><Search size={16} /><input placeholder="Buscar..." value={query} onChange={(e) => setQuery(e.target.value)} /></label></div><div className="list admin-list">{filtered.map((item) => <article key={item.id} className={cur.id === item.id ? 'active' : ''}>{(item.image_url || item.cover_image_url) ? <img src={assetUrl(item.image_url || item.cover_image_url)} alt="" /> : <div className="admin-thumb">{section.icon}</div>}<div><b>{item.title || item.name || item.email || `Item #${item.id}`}</b><p>{item.short_description || item.youtube_url || item.message || item.status || item.slug || 'Sem resumo cadastrado.'}</p></div><div className="admin-row-actions"><button type="button" onClick={() => setCur(item)}>Editar</button>{resource !== 'quotes' && <button type="button" className="danger" onClick={() => remove(resource, item)}><Trash2 size={14} /> Excluir</button>}</div></article>)}</div>{!filtered.length && <p className="admin-empty">Nenhum item encontrado.</p>}</div></div>;
+}
+
+function FieldControl({ field, value, resource, onChange, upload }) {
+  const label = resource === 'settings' ? settingsLabels[field] : adminFieldLabels[field] || field;
+  const isImage = field === 'image_url' || field === 'cover_image_url' || field === 'logo_url' || field === 'hero_image_url';
+  const isTextArea = ['content', 'description', 'short_description', 'message', 'alt_text'].includes(field);
+  if (field === 'is_active') return <label>{label}<select value={String(value ?? 1)} onChange={(e) => onChange(Number(e.target.value))}><option value="1">Publicado no site</option><option value="0">Rascunho / oculto</option></select></label>;
+  if (field === 'status') return <label>{label}<select value={value || 'novo'} onChange={(e) => onChange(e.target.value)}><option value="novo">Novo</option><option value="em_contato">Em contato</option><option value="finalizado">Finalizado</option></select></label>;
+  if (field === 'icon') return <label>{label}<select value={value || 'Factory'} onChange={(e) => onChange(e.target.value)}>{['Factory', 'Wrench', 'Settings', 'Building2', 'Gauge', 'HardHat', 'ShieldCheck'].map((icon) => <option key={icon} value={icon}>{icon}</option>)}</select></label>;
+  if (field === 'display_order' || field === 'category_id' || field === 'year') return <label>{label}<input type="number" value={value || ''} onChange={(e) => onChange(e.target.value)} /></label>;
+  if (isImage) return <label>{label}<div className="admin-image-field"><input value={value || ''} onChange={(e) => onChange(e.target.value)} placeholder="/uploads/imagem.jpg ou https://..." /><span className="upload"><Upload size={16} /> Enviar<input type="file" accept="image/*" onChange={(e) => e.target.files[0] && upload(e.target.files[0], onChange)} /></span></div></label>;
+  if (isTextArea) return <label className="wide">{label}<textarea value={value || ''} onChange={(e) => onChange(e.target.value)} /></label>;
+  return <label>{label}<input value={value || ''} onChange={(e) => onChange(e.target.value)} /></label>;
+}
+
+function ImagePreview({ title, value }) {
+  if (!value) return null;
+  return <figure className="admin-image-preview"><figcaption><ImageIcon size={16} /> {title}</figcaption><img src={assetUrl(value)} alt={title} /></figure>;
+}
+
+function QuoteSummary({ quote }) {
+  const phone = quote.phone || '';
+  const cleanPhone = phone.replace(/\D/g, '');
+  return <div className="admin-quote-card"><div><span>Cliente</span><b>{quote.name || 'Sem nome'}</b><p>{quote.company || quote.email}</p></div><div><span>Contato</span><b>{quote.phone || quote.email || 'Nao informado'}</b><p>{quote.service_interest || 'Interesse nao informado'}</p></div><div><span>Mensagem</span><p>{quote.message || 'Sem mensagem.'}</p></div>{cleanPhone && <a className="btn outline" href={`https://wa.me/55${cleanPhone}`} target="_blank" rel="noreferrer"><MessageCircle size={16} /> WhatsApp</a>}</div>;
 }
 
 createRoot(document.getElementById('root')).render(location.pathname.startsWith('/admin') ? <Admin /> : <PublicSite />);
